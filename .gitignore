@@ -2,3 +2,8 @@
 build
 tags
 .editorconfig
+
+# Visual Studio files
+.vs
+x64
+Debug
