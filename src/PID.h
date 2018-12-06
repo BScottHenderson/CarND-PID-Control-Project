@@ -18,11 +18,6 @@ public:
   double Kd;
 
   /*
-   * Previous cross track error.
-   */
-  double prev_cte;
-
-  /*
    * Constructor
    */
   PID();
@@ -46,11 +41,6 @@ public:
    * Calculate the total PID error.
    */
   double TotalError();
-
-  /*
-   * Calculate the value based on gain values and cross track error.
-   */
-  double Value(double cte);
 };
 
 #endif /* PID_H */
