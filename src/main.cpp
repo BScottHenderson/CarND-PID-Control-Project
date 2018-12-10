@@ -50,21 +50,13 @@ int main()
 
   uWS::Hub h;
 
-  int   counter = 0;
-
   PID   pid_steering;
   //pid_steering.Init(0.2, 0.004, 3.0); // Values from Udacity PID lessons.
-  //pid_steering.Init(0.134611, 0.000270736, 3.05349);  // Internet values.
-  //pid_steering.Init(0.125, 0.001, 3.25);  // These values keep the car on the track but there is a lot of oscillation.
-  //pid_steering.Init(0.115, 0.001, 3.35);  // Still on the track (one possible issue on last sharp corner), less oscillation
-  //pid_steering.Init(0.11, 0.001, 3.35); // Definitely still on track, more oscillation
-  //pid_steering.Init(0.15, 0.001, 3.5);  // Still on track (check last sharp corner), more oscillation but also higher speed
   pid_steering.Init(0.15, 0.001, 3.5);
   PID   pid_throttle;
-  //pid_throttle.Init(0.316731, 0.0000, 0.0226185);
   pid_throttle.Init(0.25, 0.000001, 0.025); // Assume there is essentially no bias in the throttle, Ki ~= 0.0
 
-  h.onMessage([&pid_steering,&pid_throttle,&counter](uWS::WebSocket<uWS::SERVER>* ws, char *data, size_t length, uWS::OpCode opCode) {
+  h.onMessage([&pid_steering,&pid_throttle](uWS::WebSocket<uWS::SERVER>* ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
