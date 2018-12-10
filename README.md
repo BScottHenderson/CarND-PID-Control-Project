@@ -54,7 +54,11 @@ I began with the gain values used for the simple 1D test case in the class lectu
 
 ##### Throttle Controller
 
-Since I was not able to make the twiddle algorithm work effectively for this project I really had to just pick a starting point for the throttle controller gain values. I chose to start with all three values set to 0.5. This proved quite ineffective. I gradually reduced the values and ended upsetting the proportional gain to half of the original value, 0.25, and the derivative gain to 1/10 of that value, 0.025. I tried setting the integral gain to 0.0 since it seemed to me that the throttle control did not need to "know" about previous CTE values to work effectively. In the end a very small value, but non-zero, proved more effective in smoothing out the throttle and steering response (since the two are necessarily related).
+Since I was not able to make the twiddle algorithm work effectively for this project I really had to just pick a starting point for the throttle controller gain values. I chose to start with all three values set to 0.5. This proved quite ineffective.
+
+The first conclusion I came to is that the integral gain should be either 0 or very close to 0. Any larger value causes the integral error term to grow too quickly and this term will tend to overwhelm the other terms, leading to very low or even negative throttle. In the end I determined that a very small value, but non-zero, proved more effective in smoothing out the throttle and steering response (since the two are necessarily related) than a value of 0.
+
+I gradually reduced the proportional and derivative gain values until I settled on the final values. I ended up setting the proportional gain to half of the original value, 0.25, and the derivative gain to 1/10 of that value, 0.025.
 
 I also found it necessary to add a small constant to the throttle value returned by the throttle controller. Otherwise the vehicle would either not move at all or would even try to move in reverse (negative throttle) at the start of the simulation.
 
@@ -71,3 +75,8 @@ Most of my time for this project was spent on the Twiddle class implemented in T
 In addition to code in the 'src' subdirectory there are Visual Studio solution and project files under the 'PIDControl' subdirectory. All other scripts were left intact so the project will still build in the original *nix environment.
 
 [Project Instructions (original README file)](doc/project.md)
+
+### Conclusion
+
+In the end the six gain constant values I settled on for the two PID controllers do keep the vehicle on the track for at least one lap at a reasonable speed. However, a fair amount of oscillation remains and it would be a very uncomfortable ride. I think continuing the "trial and error" approach to setting these gain values is unproductive however. Using a form of the twiddle algorithm that can be made to work for the simulation or some other method, e.g., a neural network or some other machine learning architecture, would undoubtedly prove more effective.
+
