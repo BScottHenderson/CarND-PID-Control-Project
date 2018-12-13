@@ -155,11 +155,9 @@ void Twiddle::update(uWS::WebSocket<uWS::SERVER> ws, double tolerance) {
   std::cout << "<< update" << std::endl;
   std::cout << "----------------------------------------" << std::endl;
 
-  if (shutdown)
 #ifdef _WIN32
+  if (shutdown)
     ws->shutdown();
-#else
-    ws.shutdown();
 #endif
 }
 
