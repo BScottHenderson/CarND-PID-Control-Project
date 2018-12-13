@@ -31,8 +31,13 @@ public:
   void write_deltas();
 
   bool next_param(double tolerance);
+#ifdef _WIN32
   void reset(uWS::WebSocket<uWS::SERVER>* ws);
   void update(uWS::WebSocket<uWS::SERVER>* ws, double tolerance);
+#else
+  void reset(uWS::WebSocket<uWS::SERVER> ws);
+  void update(uWS::WebSocket<uWS::SERVER> ws, double tolerance);
+#endif
 
   static std::vector<double> TwiddleSteering(int n = 100, double tolerance = 0.2);
 };
