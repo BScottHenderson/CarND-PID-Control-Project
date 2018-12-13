@@ -87,7 +87,7 @@ int main()
           pid_throttle.UpdateError(cte);
             // Add a bit of throttle on top of the PID value to prevent backward
             // motion at the beginning and to increase speed later on.
-          double  throttle_value = 0.5 + pid_throttle.TotalError();
+          double  throttle_value = 0.3;//0.5 + pid_throttle.TotalError();
 
           // DEBUG
           //std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
