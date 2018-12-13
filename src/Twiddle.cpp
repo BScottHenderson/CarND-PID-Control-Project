@@ -154,7 +154,11 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
 
   uWS::Hub h;
 
+#ifdef _WIN32
   h.onMessage([&pid_steering,&twiddle,&n,&tolerance](uWS::WebSocket<uWS::SERVER>* ws, char *data, size_t length, uWS::OpCode opCode) {
+#else
+  h.onMessage([&pid_steering,&twiddle,&n,&tolerance]](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+#endif
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -179,7 +183,11 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
           msgJson["steering_angle"] = steer_value;
           msgJson["throttle"] = 0.3;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
+#ifdef _WIN32
           ws->send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+#else
+          ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+#endif
 
           // DEBUG
           //if (twiddle.counter % 100 == 0)
@@ -204,7 +212,11 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
             //twiddle.write();
             //std::cout << "----------" << std::endl;
 
+#ifdef _WIN32
             twiddle.update(ws, tolerance);
+#else
+            twiddle.update(&ws, tolerance);
+#endif
 
             //std::cout << "----------" << std::endl;
             //twiddle.write();
@@ -215,7 +227,11 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
       } else {
         // Manual driving
         std::string msg = "42[\"manual\",{}]";
+#ifdef _WIN32
         ws->send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+#else
+        ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+#endif
       }
     }
   });
@@ -235,12 +251,21 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
     }
   });
 
+#ifdef _WIN32
   h.onConnection([&h](uWS::WebSocket<uWS::SERVER>* ws, uWS::HttpRequest req) {
+#else
+  h.onConnection([&h](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
+#endif
     std::cout << "Connected!!!" << std::endl;
   });
 
+#ifdef _WIN32
   h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER>* ws, int code, char *message, size_t length) {
     ws->close();
+#else
+  h.onConnection([&h](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
+    ws.close();
+#endif
     std::cout << "Disconnected" << std::endl;
   });
 
