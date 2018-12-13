@@ -270,8 +270,12 @@ std::vector<double> Twiddle::TwiddleSteering(int n, double tolerance) {
   });
 
   int port = 4567;
+#ifdef _WIN32
   auto host = "127.0.0.1";
   if (h.listen(host, port))
+#else
+  if (h.listen(port))
+#endif
   {
     std::cout << "Listening to port " << port << std::endl;
     h.run();  // There is no escape from this call - program termination occurs when the socket is closed.
