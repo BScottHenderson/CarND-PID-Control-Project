@@ -80,3 +80,8 @@ In addition to code in the 'src' subdirectory there are Visual Studio solution a
 
 In the end the six gain constant values I settled on for the two PID controllers do keep the vehicle on the track for at least one lap at a reasonable speed. However, a fair amount of oscillation remains and it would be a very uncomfortable ride. I think continuing the "trial and error" approach to setting these gain values is unproductive however. Using a form of the twiddle algorithm that can be made to work for the simulation or some other method, e.g., a neural network or some other machine learning architecture, would undoubtedly prove more effective.
 
+### Update
+
+I made changes to the code in main.cpp and Twiddle.[h|cpp] so that the code will conditionally compiler under both Windows and Linux (not sure why this was required for this project when it was not for all previous projects but ...). I was unable to test the code in Linux because the simulator crashed immediately. In testing the modified code in Windows I found that the gain values I had paintstakingly come up with for the steering and throttle controllers would no longer work, i.e., the vehicle did not stay on the track. In the end I commented out the use of the throttle PID controller in favor of the original constant throttle value. This - along with the unchanged gain values for the steering PID controller - allowed the car to remain on the track for one lap.
+
+I do not know what changed but it is time to move on to the next project.
