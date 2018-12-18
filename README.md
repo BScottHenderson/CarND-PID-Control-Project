@@ -85,3 +85,9 @@ In the end the six gain constant values I settled on for the two PID controllers
 I made changes to the code in main.cpp and Twiddle.[h|cpp] so that the code will conditionally compiler under both Windows and Linux (not sure why this was required for this project when it was not for all previous projects but ...). I was unable to test the code in Linux because the simulator crashed immediately. In testing the modified code in Windows I found that the gain values I had paintstakingly come up with for the steering and throttle controllers would no longer work, i.e., the vehicle did not stay on the track. In the end I commented out the use of the throttle PID controller in favor of the original constant throttle value. This - along with the unchanged gain values for the steering PID controller - allowed the car to remain on the track for one lap.
 
 I do not know what changed but it is time to move on to the next project.
+
+### Update, part 2
+
+Turns out that I had a copy/paste error in my conditionally compiled code for the Linux version - I had omitted the onDisconnection() definition. I'm not sure why it even compiled but it did. Didn't run though, of course. I also finally realized that there's no reason for me to run the Linux version of the simulator. The whole point of using sockets to communicate between the PID controller app and the simulator is that they are separate processes that do not care which operating system is running them.
+
+Also I tried re-instating the throttle PID controller and was once again able to get the vehicle to remain on the track for one lap. This is now runniing on my desktop wheras the last time I tried it on my laptop the vehicle did not stay on the track with the throttle controller enabled. I don't quite understand but it could have something to do with hardware differences. Still makes me a little nervous about the hardware used for the review. All I can do is try.
