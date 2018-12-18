@@ -87,7 +87,7 @@ int main()
           pid_throttle.UpdateError(cte);
             // Add a bit of throttle on top of the PID value to prevent backward
             // motion at the beginning and to increase speed later on.
-          double  throttle_value = 0.3;//0.5 + pid_throttle.TotalError();
+          double  throttle_value = 0.5 + pid_throttle.TotalError();
 
           // DEBUG
           //std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
@@ -143,7 +143,7 @@ int main()
   h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER>* ws, int code, char *message, size_t length) {
     ws->close();
 #else
-  h.onConnection([&h](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
+  h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code, char *message, size_t length) {
     ws.close();
 #endif
     std::cout << "Disconnected" << std::endl;
