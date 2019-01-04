@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E266E33C-36F5-4FC4-93CD-EFEAC2A73B42}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PIDControl</RootNamespace>
+    <RootNamespace>PID</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
