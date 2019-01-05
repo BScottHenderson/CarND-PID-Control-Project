@@ -97,7 +97,7 @@ int main()
           msgJson["throttle"] = throttle_value;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
 
-          std::cout << msg << std::endl;
+          //std::cout << msg << std::endl;
 #ifdef _WIN32
           ws->send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 #else
